@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6347;
+        }
+
+        section {
+            padding: 4rem 1rem;
+            margin: 0 1rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        section h1 {
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .bg-light {
+            background-color: #f9f9f9;
+        }
+
+        .bg-dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .profile-pic {
+            display: block;
+            margin: 0 auto 1rem;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .project-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .project {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: calc(45% - 1rem);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .project h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #ff6347;
+        }
+
+        form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            font-weight: bold;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #e5533d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .project {
+                width: 100%;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 0.5rem 0;
+            }
+
+            nav ul li a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about" class="bg-light">
+        <h1>About Me</h1>
+        <img src="https://i.pinimg.com/originals/90/bc/0f/90bc0ff3ac91d3ea2afb160c891f5193.jpg" alt="Profile Picture" class="profile-pic">
+        <p>I am a web developer and UI/UX designer.</p>
+    </section>
+
+    <section id="projects" class="bg-dark">
+        <h1>Projects</h1>
+        <div class="project-list">
+            <div class="project">
+                <img src="https://kutv.com/resources/media2/16x9/full/1015/center/80/16607ce5-f707-4520-964e-9d36ca82ccae-large16x9_GettyImages585296166.jpg" alt="Project One">
+                <h2>Project One (Food tracking system)</h2>
+                <p>Food tracking system.</p>
+            </div>
+            <div class="project">
+                <img src="https://www.ionos.de/digitalguide/fileadmin/DigitalGuide/Teaser/online-shopping-t.jpg" alt="Project Two">
+                <h2>Project Two (Online shopping)</h2>
+                <p>Online shopping</p>
+            </div>
+            <!-- Add more projects as needed -->
+        </div>
+    </section>
+
+    <section id="skills" class="bg-light">
+        <h1>Skills</h1>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <!-- Add more skills as needed -->
+        </ul>
+    </section>
+
+    <section id="contact" class="bg-dark">
+        <h1>Contact</h1>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Bindu</p>
+    </footer>
+</body>
+</html>
