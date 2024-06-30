@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6347;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .quiz-form, .create-form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .quiz-form h2, .create-form h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            color: #ff6347;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"], .form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        .form-group button {
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #e5533d;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #ffebcd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#create">Create Quiz</a></li>
+                <li><a href="#take">Take Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="create" class="create-form">
+            <h2>Create a Quiz</h2>
+            <form id="quiz-create-form">
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    <input type="text" id="question" name="question" required>
+                </div>
+                <div class="form-group">
+                    <label for="option1">Option 1</label>
+                    <input type="text" id="option1" name="option1" required>
+                </div>
+                <div class="form-group">
+                    <label for="option2">Option 2</label>
+                    <input type="text" id="option2" name="option2" required>
+                </div>
+                <div class="form-group">
+                    <label for="option3">Option 3</label>
+                    <input type="text" id="option3" name="option3" required>
+                </div>
+                <div class="form-group">
+                    <label for="option4">Option 4</label>
+                    <input type="text" id="option4" name="option4" required>
+                </div>
+                <div class="form-group">
+                    <label for="correct">Correct Answer (type 'option1', 'option2', etc.)</label>
+                    <input type="text" id="correct" name="correct" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Create Quiz</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="take" class="quiz-form">
+            <h2>Take a Quiz</h2>
+            <form id="quiz-take-form">
+                <div class="form-group" id="quiz-question-group">
+                    <label id="quiz-question">Question will appear here</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="answer1" name="answer" value="option1">
+                    <label for="answer1" id="label1">Option 1</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="answer2" name="answer" value="option2">
+                    <label for="answer2" id="label2">Option 2</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="answer3" name="answer" value="option3">
+                    <label for="answer3" id="label3">Option 3</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="answer4" name="answer" value="option4">
+                    <label for="answer4" id="label4">Option 4</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit Answer</button>
+                </div>
+            </form>
+            <div class="result" id="quiz-result"></div>
+        </section>
+    </div>
+
+    <script>
+        const quizCreateForm = document.getElementById('quiz-create-form');
+        const quizTakeForm = document.getElementById('quiz-take-form');
+        const quizQuestion = document.getElementById('quiz-question');
+        const quizOptions = document.querySelectorAll('[id^="label"]');
+        const quizResult = document.getElementById('quiz-result');
+        let quiz = {};
+
+        quizCreateForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            quiz.question = quizCreateForm.question.value;
+            quiz.options = [
+                quizCreateForm.option1.value,
+                quizCreateForm.option2.value,
+                quizCreateForm.option3.value,
+                quizCreateForm.option4.value
+            ];
+            quiz.correct = quizCreateForm.correct.value;
+            alert('Quiz created successfully!');
+            quizCreateForm.reset();
+
+            // Update quiz question and options in take section
+            quizQuestion.textContent = quiz.question;
+            quizOptions[0].textContent = quiz.options[0];
+            quizOptions[1].textContent = quiz.options[1];
+            quizOptions[2].textContent = quiz.options[2];
+            quizOptions[3].textContent = quiz.options[3];
+
+            // Clear previous result
+            quizResult.textContent = '';
+        });
+
+        quizTakeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedAnswer = quizTakeForm.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert('Please select an answer!');
+                return;
+            }
+            const userAnswer = selectedAnswer.value;
+            if (userAnswer === quiz.correct) {
+                displayResult('Correct!', 'green');
+            } else {
+                displayResult(`Incorrect! The correct answer is ${quiz.correct}.`, 'red');
+            }
+        });
+
+        function displayResult(message, color) {
+            quizResult.textContent = message;
+            quizResult.style.color = color;
+        }
+    </script>
+</body>
+</html>
